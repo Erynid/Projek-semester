@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toko A - Dasbor Produk UMKM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Toko A - Dasbor Produk</h1>
+        <p>Pengembang: <strong>Muhammad Dzakir Dzakwan</strong> | NPM: <strong>2440304015</strong> | Kelas:
+            <strong>Teknik Komputer</strong></p>
+    </header>
+
+    <main>
+        <section class="stats-section">
+            <h2>Ringkasan Statistik Data</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Rata-Rata Harga</h3>
+                    <p id="avg-price">$0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Produk Termahal</h3>
+                    <p id="max-product">-</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Jumlah Kategori</h3>
+                    <p id="total-categories">0</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="controls-section">
+            <div class="control-group">
+                <label for="search-input">Cari Produk (Debounce):</label>
+                <input type="text" id="search-input" placeholder="Ketik nama produk...">
+            </div>
+            <div class="control-group">
+                <label for="category-filter">Filter Kategori:</label>
+                <select id="category-filter">
+                    <option value="all">Semua Kategori</option>
+                </select>
+            </div>
+        </section>
+
+        <div id="loading-indicator" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Memuat data produk...</p>
+        </div>
+        <div id="error-message" class="error-box hidden"></div>
+
+        <section>
+            <h2>Daftar Produk Toko A</h2>
+            <div id="product-container" class="product-grid"></div>
+        </section>
+
+        <section class="form-section">
+            <h2>Tambah Masukan / Catatan Produk</h2>
+            <form id="feedback-form" novalidate>
+                <div class="form-group">
+                    <label for="user-name">Nama Pengirim (Min. 5 Karakter):</label>
+                    <input type="text" id="user-name" placeholder="Masukkan nama Anda">
+                    <small id="name-error" class="error-text hidden">Nama harus terdiri dari minimal 5 karakter!</small>
+                </div>
+                <div class="form-group">
+                    <label for="user-message">Pesan / Catatan:</label>
+                    <textarea id="user-message" rows="3" placeholder="Tuliskan catatan atau masukan Anda..."></textarea>
+                </div>
+                <button type="submit">Kirim Masukan</button>
+                <p id="form-success" class="success-text hidden">Masukan berhasil dikirim!</p>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Toko A - PTS Pemrograman Web UBT. Dibuat oleh Muhammad Dzakir Dzakwan (NPM: 2440304015).</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
