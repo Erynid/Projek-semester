@@ -7,10 +7,16 @@ const productContainer = document.getElementById('product-container');
 const loadingIndicator = document.getElementById('loading-indicator');
 const errorMessage = document.getElementById('error-message');
 const categoryFilter = document.getElementById('category-filter');
+const searchInput = document.getElementById('search-input');
 
 const avgPriceEl = document.getElementById('avg-price');
 const maxProductEl = document.getElementById('max-product');
 const totalCategoriesEl = document.getElementById('total-categories');
+
+const feedbackForm = document.getElementById('feedback-form');
+const userNameInput = document.getElementById('user-name');
+const nameError = document.getElementById('name-error');
+const formSuccess = document.getElementById('form-success');
 
 async function loadProducts() {
     try {
@@ -94,12 +100,46 @@ function populateCategories(products) {
     });
 }
 
-categoryFilter.addEventListener('change', () => {
+function debounce(func, delay = 400) {
+    let timer;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+const handleSearch = debounce(() => {
+    applyFilters();
+});
+
+searchInput.addEventListener('input', handleSearch);
+categoryFilter.addEventListener('change', () => applyFilters());
+
+function applyFilters() {
+    const query = searchInput.value.toLowerCase().trim();
     const selectedCategory = categoryFilter.value;
+
     filteredProducts = allProducts.filter(product => {
-        return selectedCategory === 'all' || product.category === selectedCategory;
+        const matchSearch = product.title.toLowerCase().includes(query);
+        const matchCategory = selectedCategory === 'all' || product.category === selectedCategory;
+        return matchSearch && matchCategory;
     });
+
     renderProducts(filteredProducts);
+}
+
+feedbackForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const nameVal = userNameInput.value.trim();
+
+    if (nameVal.length < 5) {
+        nameError.classList.remove('hidden');
+        formSuccess.classList.add('hidden');
+    } else {
+        nameError.classList.add('hidden');
+        formSuccess.classList.remove('hidden');
+        feedbackForm.reset();
+    }
 });
 
 document.addEventListener('DOMContentLoaded', loadProducts);
